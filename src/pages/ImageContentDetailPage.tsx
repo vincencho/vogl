@@ -38,14 +38,19 @@ const ImageContentDetailPage: React.FC = () => {
   const { viewportSize, setHeaderStyle, setFooterStyle } = useLayout();
 
   useEffect(() => {
-    setHeaderStyle('fixed');
-    setFooterStyle('none');
+    if (viewportSize === 'desktop') {
+      setHeaderStyle('fixed');
+      setFooterStyle('none');
+    } else {
+      setHeaderStyle('hide');
+      setFooterStyle('none');
+    }
 
     return () => {
       setHeaderStyle('fixed');
       setFooterStyle('fixed');
     };
-  }, [setHeaderStyle, setFooterStyle]);
+  }, [viewportSize, setHeaderStyle, setFooterStyle]);
 
   useEffect(() => {
     const fetchContent = async () => {

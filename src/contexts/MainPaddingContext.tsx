@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
-type MainPadding = 'default' | 'no-padding' | 'mobile' | 'tablet' | 'desktop';
+type MainPadding = 'default' | 'no-padding' | 'mobile' | 'tablet' | 'desktop' | 'image-detail-pc';
 
 interface MainPaddingContextType {
   mainPadding: MainPadding;

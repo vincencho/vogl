@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLayout } from '../contexts/LayoutContext';
+import { useMainPadding } from '../contexts/MainPaddingContext';
 import SaveModal from '../components/SaveModal';
 import ProductSimilar from '../components/ProductSimilar';
 import ShareModal from '../components/ShareModal';
@@ -36,21 +37,25 @@ const ImageContentDetailPage: React.FC = () => {
   const [isProductSimilarOpen, setIsProductSimilarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('original');
   const { viewportSize, setHeaderStyle, setFooterStyle } = useLayout();
+  const { setMainPadding } = useMainPadding();
 
   useEffect(() => {
     if (viewportSize === 'desktop') {
       setHeaderStyle('fixed');
       setFooterStyle('none');
+      setMainPadding('image-detail-pc');
     } else {
       setHeaderStyle('hide');
       setFooterStyle('none');
+      setMainPadding('no-padding');
     }
 
     return () => {
       setHeaderStyle('fixed');
       setFooterStyle('fixed');
+      setMainPadding('default');
     };
-  }, [viewportSize, setHeaderStyle, setFooterStyle]);
+  }, [viewportSize, setHeaderStyle, setFooterStyle, setMainPadding]);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -101,7 +106,7 @@ const ImageContentDetailPage: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      <div className={`${viewportSize === 'desktop' ? 'flex pt-20' : ''}`}>
+      <div className={`${viewportSize === 'desktop' ? 'flex' : ''}`}>
         <div className={`${viewportSize === 'desktop' ? 'w-1/2' : 'w-full'}`}>
           <ImageContentSection
             imageUrl={content.imageUrl}
